@@ -1,4 +1,4 @@
-﻿using PKHeX.Core;
+using PKHeX.Core;
 using PKHeX.Drawing.Misc;
 using PKHeX.Drawing.PokeSprite;
 using SysBot.Base;
@@ -17,6 +17,98 @@ namespace SWSH_OWRNG_Generator.WinForms
     {
         private readonly static SwitchConnectionConfig Config = new() { Protocol = SwitchProtocol.WiFi, IP = Properties.Settings.Default.SwitchIP, Port = 6000 };
         public SwitchSocketAsync SwitchConnection = new(Config);
+        public Dictionary<string, string> Nature_dict = new Dictionary<string, string>()
+        {
+            {"(指定なし)", "Ignore"},
+            {"いじっぱり", "Adamant"},
+            { "うっかりや", "Rash"},
+            { "おくびょう", "Timid"},
+            { "おだやか", "Calm"},
+            { "おっとり", "Mild"},
+            { "おとなしい", "Gentle"},
+            { "がんばりや", "Hardy"},
+            { "きまぐれ", "Quirky"},
+            { "さみしがり", "Lonely"},
+            { "しんちょう", "Careful"},
+            { "すなお", "Docile"},
+            { "ずぶとい", "Bold"},
+            { "せっかち", "Hasty"},
+            { "てれや", "Bashful"},
+            { "なまいき", "Sassy"},
+            { "のうてんき", "Lax"},
+            { "のんき", "Relaxed"},
+            { "ひかえめ", "Modest"},
+            { "まじめ", "Serious"},
+            { "むじゃき", "Naive"},
+            { "やんちゃ", "Naughty"},
+            { "ゆうかん", "Brave"},
+            { "ようき", "Jolly"},
+            { "れいせい", "Quiet"},
+            { "わんぱく", "Impish" }
+        };
+        public Dictionary<string, string> Mark_dict = new Dictionary<string, string>()
+        {
+            {"(指定なし)","Ignore"},
+            {"証なし","None"},
+            {"証あり","Any Mark"},
+            {"雰囲気証","Any Personality"},
+            {"時間帯","Time"},
+            {"天候","Weather"},
+            {"ときどきみる(ひとになれている)","Uncommon"},
+            {"つりあげられた(つりたてピチピチの)","Fishing"},
+            {"みたことのない(ひとをしらない)","Rare"},
+            {"わんぱく(あばれんぼうの)","Rowdy"},
+            {"のうてんき(なにもかんがえていない)","AbsentMinded"},
+            {"きんちょう(ドキドキしている)","Jittery"},
+            {"きたい(ワクワクしている)","Excited"},
+            {"カリスマ(オーラをかんじる)","Charismatic"},
+            {"れいせい(クールな)","Calmness"},
+            {"じょうねつ(アグレッシブな)","Intense"},
+            {"ゆだん(ボーっとしている)","ZonedOut"},
+            {"たこう(しあわせそうな)","Joyful"},
+            {"ふんぬ(プンプンおこる)","Angry"},
+            {"びしょう(ニコニコわらう)","Smiley"},
+            {"ひそう(メソメソなく)","Teary"},
+            {"かいちょう(ごきげんな)","Upbeat"},
+            {"げきはつ(ふきげんな)","Peeved"},
+            {"りせい(ちてきな)","Intellectual"},
+            {"ほんのう(あれくるう)","Ferocious"},
+            {"こうかつ(スキをねらう)","Crafty"},
+            {"こわもて(いかつい)","Scowling"},
+            {"やさがた(やさしげな)","Kindly"},
+            {"どうよう(あわてんぼうの)","Flustered"},
+            {"こうよう(やるきまんまんの)","PumpedUp"},
+            {"けんたい(やるきゼロの)","ZeroEnergy"},
+            {"じしん(ふんぞりかえった)","Prideful"},
+            {"ふしん(じしんのない)","Unsure"},
+            {"ぼくとつ(そぼくな)","Humble"},
+            {"ふじゅん(きどっている)","Thorny"},
+            {"げんき(げんきいっぱいの)","Vigor"},
+            {"ふちょう(どこかくたびれた)","Slump"}
+        };
+        public Dictionary<string, string> Shiny_dict = new Dictionary<string, string>()
+        {
+            {"(指定なし)", "Ignore"},
+            { "★/◆", "Star/Square" },
+            {"◆", "Square"},
+            {"★", "Star"},
+            { "通常色", "No" }
+        };
+        public Dictionary<string, string> IVJudge_dict = new Dictionary<string, string>()
+        {
+            {"ダメかも","No Good"},
+            {"まあまあ","Decent"},
+            {"かなりいい","Pretty Good"},
+            {"すごくいい","Very Good"},
+            {"すばらしい","Fantastic"},
+            {"さいこう","Best"}
+        };
+        public Dictionary<string, string> Aura_dict = new Dictionary<string, string>()
+        {
+            {"(指定なし)", "Ignore"},
+            {"なし", "None"},
+            {"あり", "Brilliant"},
+        };
         public MainWindow()
         {
             string build = string.Empty;
@@ -42,6 +134,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             SelectedShiny.SelectedIndex = 0;
             SelectedNature.SelectedIndex = 0;
             SelectedAura.SelectedIndex = 0;
+            SelectedGender.SelectedIndex = 0;
 
             // Set Tab Indexes Manually
             // This will make life easier when adding more fields later on
@@ -110,6 +203,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             SelectedShiny.TabIndex = i++;
             SelectedMark.TabIndex = i++;
             SelectedAura.TabIndex = i++;
+            SelectedGender.TabIndex = i++;
             // Results
             ButtonSearch.TabIndex = i++;
             Results.TabIndex = i++;
@@ -614,6 +708,7 @@ namespace SWSH_OWRNG_Generator.WinForms
                 DesiredShiny = (string)SelectedShiny.SelectedItem,
                 DesiredNature = (string)SelectedNature.SelectedItem,
                 DesiredAura = (string)SelectedAura.SelectedItem,
+                DesiredGender = (string)SelectedGender.SelectedItem,
                 MinIVs = new uint[] { ushort.Parse(hpMin.Text), ushort.Parse(atkMin.Text), ushort.Parse(defMin.Text), ushort.Parse(spaMin.Text), ushort.Parse(spdMin.Text), ushort.Parse(speMin.Text) },
                 MaxIVs = new uint[] { ushort.Parse(hpMax.Text), ushort.Parse(atkMax.Text), ushort.Parse(defMax.Text), ushort.Parse(spaMax.Text), ushort.Parse(spdMax.Text), ushort.Parse(speMax.Text) }
             };
@@ -627,20 +722,20 @@ namespace SWSH_OWRNG_Generator.WinForms
             {
                 if (Filters.MinIVs[i] > Filters.MaxIVs[i])
                 {
-                    message += $"Error in stat filter: {stats[i]}!\n";
+                    message += $"ステータスフィルターにエラーがあります {stats[i]}!\n";
                     err = 1;
                 }
             }
 
             if (err != 0)
             {
-                message += "\nMin IV filter cannot be greater than Max IV filter!";
-                const string caption = "Error!";
+                message += "\n個体値フィルター(最小)は個体値フィルター(最大)を超えて設定できません!";
+                const string caption = "エラー!";
                 DialogResult result = MessageBox.Show(message, caption);
                 return;
             }
 
-            ButtonSearch.Text = "Calculating...";
+            ButtonSearch.Text = "検索中です...";
             ButtonSearch.Enabled = false;
 
             Results.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
@@ -659,13 +754,20 @@ namespace SWSH_OWRNG_Generator.WinForms
 
             var progress = new Progress<int>(_ => progressBar1.PerformStep());
 
+            this.Results.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            this.Results.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            this.Results.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.Results.Visible = false;
+
             List<Core.Frame> Frames = await Task.Run(() => Core.Generator.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs));
             BindingSource Source = new() { DataSource = Frames };
             Results.DataSource = Source;
             Source.ResetBindings(false);
 
+            this.Results.Visible = true;
+
             progressBar1.Value = progressBar1.Maximum;
-            ButtonSearch.Text = "Search!";
+            ButtonSearch.Text = "検索開始！";
             ButtonSearch.Enabled = true;
         }
 
@@ -702,7 +804,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             RetailInitial = Initial;
             uint Max = uint.Parse(RetailAdvancesTrackerMaxInput.Text);
 
-            RetailAdvancesTrackerGenerateButton.Text = "Calculating...";
+            RetailAdvancesTrackerGenerateButton.Text = "計算中...";
             RetailAdvancesTrackerGenerateButton.Enabled = false;
             RetailAdvancesTrackerSequenceInput.ReadOnly = true;
 
@@ -715,7 +817,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             RetailAdvancesGeneratorString = await Task.Run(() => Core.Generator.GenerateRetailSequence(s0, s1, Initial, Max, progress));
 
             RetailAdvancesTrackerProgressBar.Value = RetailAdvancesTrackerProgressBar.Maximum;
-            RetailAdvancesTrackerGenerateButton.Text = "Generate Pattern";
+            RetailAdvancesTrackerGenerateButton.Text = "生成パターン";
             RetailAdvancesTrackerGenerateButton.Enabled = true;
             RetailAdvancesTrackerSequenceInput.ReadOnly = false;
         }
@@ -735,11 +837,11 @@ namespace SWSH_OWRNG_Generator.WinForms
                     res.Add(index);
                     i = index;
                 }
-                RetailAdvancesTrackerNumResultsLabel.Text = $"Possible Results: {res.Count} (Inputs: {l})";
+                RetailAdvancesTrackerNumResultsLabel.Text = $"検索結果(件): {res.Count} (入力: {l})";
                 if (res.Count == 1)
                 {
                     uint num = (uint)res[0] + (uint)Text.Length + RetailInitial;
-                    RetailAdvancesTrackerNumResultsLabel.Text = $"Possible Results: 1 (Advances: {num} | Inputs {l})";
+                    RetailAdvancesTrackerNumResultsLabel.Text = $"検索結果(件): 1 (消費数: {num} | 入力 {l})";
                     Xoroshiro128Plus go = new(RetailS0, RetailS1);
                     for (int i = 0; i < num; i++)
                         go.Next();
@@ -751,7 +853,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             }
             else
             {
-                RetailAdvancesTrackerNumResultsLabel.Text = $"Possible Results: Needs at least 5 inputs (Inputs: {l})";
+                RetailAdvancesTrackerNumResultsLabel.Text = $"検索結果(件): 少なくともあと5回入力が必要です (Inputs: {l})";
             }
         }
 
@@ -807,22 +909,22 @@ namespace SWSH_OWRNG_Generator.WinForms
         {
             switch (judge)
             {
-                case "No Good":
+                case "ダメかも":
                     SetIvFilters(statL, statU, "0", "0");
                     break;
-                case "Decent":
+                case "まあまあ":
                     SetIvFilters(statL, statU, "1", "15");
                     break;
-                case "Pretty Good":
+                case "かなりいい":
                     SetIvFilters(statL, statU, "16", "25");
                     break;
-                case "Very Good":
+                case "すごくいい":
                     SetIvFilters(statL, statU, "26", "29");
                     break;
-                case "Fantastic":
+                case "すばらしい":
                     SetIvFilters(statL, statU, "30", "30");
                     break;
-                case "Best":
+                case "さいこう":
                     SetIvFilters(statL, statU, "31", "31");
                     break;
                 default:
@@ -1245,6 +1347,31 @@ namespace SWSH_OWRNG_Generator.WinForms
         private void CheckMenuClose_CheckedChanged(object sender, EventArgs e)
         {
             InputNPCs.Enabled = CheckMenuClose.Checked;
+        }
+
+        private void LabelLevel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DesiredNature_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Results_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void SelectedMark_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PokeSprite_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
