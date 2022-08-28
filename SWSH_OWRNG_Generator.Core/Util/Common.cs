@@ -1,11 +1,47 @@
-﻿using PKHeX.Core;
+using PKHeX.Core;
 
 namespace SWSH_OWRNG_Generator.Core.Util
 {
     public class Common
     {
         private static readonly string[] PersonalityMarks = { "Rowdy", "AbsentMinded", "Jittery", "Excited", "Charismatic", "Calmness", "Intense", "ZonedOut", "Joyful", "Angry", "Smiley", "Teary", "Upbeat", "Peeved", "Intellectual", "Ferocious", "Crafty", "Scowling", "Kindly", "Flustered", "PumpedUp", "ZeroEnergy", "Prideful", "Unsure", "Humble", "Thorny", "Vigor", "Slump" };
-
+        public static Dictionary<string, string> Mark_dict = new Dictionary<string, string>()
+        {
+            {"None","-"},
+            {"Time","時間帯"},
+            {"Weather","天候"},
+            {"Uncommon","ときどきみる(ひとになれている)"},
+            {"Fishing","つりあげられた(つりたてピチピチの)"},
+            {"Rare","みたことのない(ひとをしらない)"},
+            {"Rowdy","わんぱく(あばれんぼうの)"},
+            {"AbsentMinded","のうてんき(なにもかんがえていない)"},
+            {"Jittery","きんちょう(ドキドキしている)"},
+            {"Excited","きたい(ワクワクしている)"},
+            {"Charismatic","カリスマ(オーラをかんじる)"},
+            {"Calmness","れいせい(クールな)"},
+            {"Intense","じょうねつ(アグレッシブな)"},
+            {"ZonedOut","ゆだん(ボーっとしている)"},
+            {"Joyful","たこう(しあわせそうな)"},
+            {"Angry","ふんぬ(プンプンおこる)"},
+            {"Smiley","びしょう(ニコニコわらう)"},
+            {"Teary","ひそう(メソメソなく)"},
+            {"Upbeat","かいちょう(ごきげんな)"},
+            {"Peeved","げきはつ(ふきげんな)"},
+            {"Intellectual","りせい(ちてきな)"},
+            {"Ferocious","ほんのう(あれくるう)"},
+            {"Crafty","こうかつ(スキをねらう)"},
+            {"Scowling","こわもて(いかつい)"},
+            {"Kindly","やさがた(やさしげな)"},
+            {"Flustered","どうよう(あわてんぼうの)"},
+            {"PumpedUp","こうよう(やるきまんまんの)"},
+            {"ZeroEnergy","けんたい(やるきゼロの)"},
+            {"Prideful","じしん(ふんぞりかえった)"},
+            {"Unsure","ふしん(じしんのない)"},
+            {"Humble","ぼくとつ(そぼくな)"},
+            {"Thorny","ふじゅん(きどっている)"},
+            {"Vigor","げんき(げんきいっぱいの)"},
+            {"Slump","ふちょう(どこかくたびれた)"}
+        };
         public static uint GetTSV(uint TID, uint SID)
         {
             return TID ^ SID;
@@ -33,14 +69,14 @@ namespace SWSH_OWRNG_Generator.Core.Util
                 uint time = (uint)go.NextInt(50);
                 uint fish = (uint)go.NextInt(25);
 
-                if (rare == 0) return "Rare";
-                if (pers == 0) return PersonalityMarks[go.NextInt(28)];
-                if (unco == 0) return "Uncommon";
-                if (weat == 0 && Weather) return "Weather";
-                if (time == 0) return "Time";
-                if (fish == 0 && Fishing) return "Fishing";
+                if (rare == 0) return "みたことのない(ひとをしらない)";
+                if (pers == 0) return Mark_dict[PersonalityMarks[go.NextInt(28)]];
+                if (unco == 0) return "ときどきみる(ひとになれている)";
+                if (weat == 0 && Weather) return "天候";
+                if (time == 0) return "時間帯";
+                if (fish == 0 && Fishing) return "つりあげられた(つりたてピチピチの)";
             }
-            return "None";
+            return "-";
         }
 
         public static (uint, uint, uint[], uint, bool) CalculateFixed(uint FixedSeed, uint TSV, bool Shiny, int ForcedIVs, uint[] MinIVs, uint[] MaxIVs)
