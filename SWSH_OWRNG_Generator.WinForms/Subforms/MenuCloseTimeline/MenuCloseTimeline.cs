@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -25,6 +25,11 @@ namespace SWSH_OWRNG_Generator.WinForms
 
         private async void TimelineSearch_Click(object sender, System.EventArgs e)
         {
+            if((int.Parse(InputState0.Text) == 0 ) && (int.Parse(InputState1.Text) == 0)) 
+            { 
+                MessageBox.Show("不正な入力値です。\r\n");
+                return;
+            }
             MainWindow.Pad(InputState0, '0', 16);
             MainWindow.Pad(InputState1, '0', 16);
             ulong s0 = ulong.Parse(InputState0.Text, NumberStyles.AllowHexSpecifier);
@@ -46,7 +51,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             TimelineProgressBar.Maximum = (int)advances;
             TimelineProgressBar.Step = TimelineProgressBar.Maximum / 100;
 
-            TimelineSearch.Text = "Calculating...";
+            TimelineSearch.Text = "検索中...";
             TimelineSearch.Enabled = false;
 
             var progress = new Progress<int>(_ => TimelineProgressBar.PerformStep());
@@ -57,8 +62,12 @@ namespace SWSH_OWRNG_Generator.WinForms
             TimelineResults.DataSource = Source;
             Source.ResetBindings(false);
 
+            /* 日本語対応 */
+            TimelineResults.Columns["Advances"].HeaderText = "消費数";
+            TimelineResults.Columns["Jump"].HeaderText = "ジャンプ";
+
             TimelineProgressBar.Value = TimelineProgressBar.Maximum;
-            TimelineSearch.Text = "Search!";
+            TimelineSearch.Text = "検索!";
             TimelineSearch.Enabled = true;
         }
     }
