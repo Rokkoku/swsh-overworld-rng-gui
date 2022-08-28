@@ -1,4 +1,4 @@
-﻿namespace SWSH_OWRNG_Generator.WinForms
+namespace SWSH_OWRNG_Generator.WinForms
 {
     partial class Cram_o_matic
     {
@@ -61,7 +61,7 @@
             // LabelState1
             // 
             this.LabelState1.AutoSize = true;
-            this.LabelState1.Location = new System.Drawing.Point(12, 36);
+            this.LabelState1.Location = new System.Drawing.Point(20, 35);
             this.LabelState1.Name = "LabelState1";
             this.LabelState1.Size = new System.Drawing.Size(50, 15);
             this.LabelState1.TabIndex = 7;
@@ -69,7 +69,7 @@
             // 
             // InputState1
             // 
-            this.InputState1.Location = new System.Drawing.Point(68, 32);
+            this.InputState1.Location = new System.Drawing.Point(76, 32);
             this.InputState1.MaxLength = 16;
             this.InputState1.Name = "InputState1";
             this.InputState1.Size = new System.Drawing.Size(189, 23);
@@ -77,7 +77,7 @@
             // 
             // InputState0
             // 
-            this.InputState0.Location = new System.Drawing.Point(68, 6);
+            this.InputState0.Location = new System.Drawing.Point(76, 6);
             this.InputState0.MaxLength = 16;
             this.InputState0.Name = "InputState0";
             this.InputState0.Size = new System.Drawing.Size(189, 23);
@@ -86,7 +86,7 @@
             // LabelState0
             // 
             this.LabelState0.AutoSize = true;
-            this.LabelState0.Location = new System.Drawing.Point(12, 9);
+            this.LabelState0.Location = new System.Drawing.Point(17, 9);
             this.LabelState0.Name = "LabelState0";
             this.LabelState0.Size = new System.Drawing.Size(53, 15);
             this.LabelState0.TabIndex = 5;
@@ -98,9 +98,9 @@
             this.SelectedItem.FormattingEnabled = true;
             this.SelectedItem.ItemHeight = 15;
             this.SelectedItem.Items.AddRange(new object[] {
-            "Same Apricorn",
-            "Mixed Apricorn"});
-            this.SelectedItem.Location = new System.Drawing.Point(68, 61);
+            "同一ぼんぐり投入",
+            "異種ぼんぐり投入"});
+            this.SelectedItem.Location = new System.Drawing.Point(76, 61);
             this.SelectedItem.Name = "SelectedItem";
             this.SelectedItem.Size = new System.Drawing.Size(189, 23);
             this.SelectedItem.TabIndex = 3;
@@ -108,35 +108,36 @@
             // LabelItemInput
             // 
             this.LabelItemInput.AutoSize = true;
-            this.LabelItemInput.Location = new System.Drawing.Point(28, 64);
+            this.LabelItemInput.Location = new System.Drawing.Point(23, 64);
             this.LabelItemInput.Name = "LabelItemInput";
-            this.LabelItemInput.Size = new System.Drawing.Size(34, 15);
+            this.LabelItemInput.Size = new System.Drawing.Size(47, 15);
             this.LabelItemInput.TabIndex = 137;
-            this.LabelItemInput.Text = "Item:";
+            this.LabelItemInput.Text = "もちもの:";
+            this.LabelItemInput.Click += new System.EventHandler(this.LabelItemInput_Click);
             // 
             // CramResults
             // 
             this.CramResults.AllowUserToAddRows = false;
             this.CramResults.AllowUserToDeleteRows = false;
             this.CramResults.AllowUserToResizeRows = false;
-            this.CramResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.CramResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CramResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.CramResults.Location = new System.Drawing.Point(263, 6);
+            this.CramResults.Location = new System.Drawing.Point(276, 6);
             this.CramResults.MultiSelect = false;
             this.CramResults.Name = "CramResults";
             this.CramResults.ReadOnly = true;
             this.CramResults.RowHeadersVisible = false;
             this.CramResults.RowTemplate.Height = 25;
             this.CramResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.CramResults.Size = new System.Drawing.Size(612, 388);
+            this.CramResults.Size = new System.Drawing.Size(678, 388);
             this.CramResults.TabIndex = 16;
             // 
             // LabelMaxAdv
             // 
             this.LabelMaxAdv.AutoSize = true;
-            this.LabelMaxAdv.Location = new System.Drawing.Point(47, 119);
+            this.LabelMaxAdv.Location = new System.Drawing.Point(55, 119);
             this.LabelMaxAdv.Name = "LabelMaxAdv";
             this.LabelMaxAdv.Size = new System.Drawing.Size(15, 15);
             this.LabelMaxAdv.TabIndex = 140;
@@ -144,7 +145,7 @@
             // 
             // InputMaxAdv
             // 
-            this.InputMaxAdv.Location = new System.Drawing.Point(68, 116);
+            this.InputMaxAdv.Location = new System.Drawing.Point(76, 116);
             this.InputMaxAdv.MaxLength = 13;
             this.InputMaxAdv.Name = "InputMaxAdv";
             this.InputMaxAdv.Size = new System.Drawing.Size(189, 23);
@@ -154,15 +155,15 @@
             // LabelInitialAdv
             // 
             this.LabelInitialAdv.AutoSize = true;
-            this.LabelInitialAdv.Location = new System.Drawing.Point(5, 93);
+            this.LabelInitialAdv.Location = new System.Drawing.Point(0, 93);
             this.LabelInitialAdv.Name = "LabelInitialAdv";
-            this.LabelInitialAdv.Size = new System.Drawing.Size(57, 15);
+            this.LabelInitialAdv.Size = new System.Drawing.Size(70, 15);
             this.LabelInitialAdv.TabIndex = 142;
-            this.LabelInitialAdv.Text = "Init. Adv.:";
+            this.LabelInitialAdv.Text = "初期消費数:";
             // 
             // InputInitialAdv
             // 
-            this.InputInitialAdv.Location = new System.Drawing.Point(68, 90);
+            this.InputInitialAdv.Location = new System.Drawing.Point(76, 90);
             this.InputInitialAdv.MaxLength = 13;
             this.InputInitialAdv.Name = "InputInitialAdv";
             this.InputInitialAdv.Size = new System.Drawing.Size(189, 23);
@@ -172,14 +173,14 @@
             // CramProgressBar
             // 
             this.CramProgressBar.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.CramProgressBar.Location = new System.Drawing.Point(14, 185);
+            this.CramProgressBar.Location = new System.Drawing.Point(22, 185);
             this.CramProgressBar.Name = "CramProgressBar";
             this.CramProgressBar.Size = new System.Drawing.Size(243, 10);
             this.CramProgressBar.TabIndex = 144;
             // 
             // CramSearch
             // 
-            this.CramSearch.Location = new System.Drawing.Point(12, 148);
+            this.CramSearch.Location = new System.Drawing.Point(20, 148);
             this.CramSearch.Name = "CramSearch";
             this.CramSearch.Size = new System.Drawing.Size(245, 31);
             this.CramSearch.TabIndex = 6;
@@ -190,41 +191,41 @@
             // CheckPoke
             // 
             this.CheckPoke.AutoSize = true;
-            this.CheckPoke.Location = new System.Drawing.Point(12, 230);
+            this.CheckPoke.Location = new System.Drawing.Point(20, 355);
             this.CheckPoke.Name = "CheckPoke";
-            this.CheckPoke.Size = new System.Drawing.Size(106, 19);
+            this.CheckPoke.Size = new System.Drawing.Size(162, 19);
             this.CheckPoke.TabIndex = 9;
-            this.CheckPoke.Text = "Show Poké Ball";
+            this.CheckPoke.Text = "「モンスターボール」を表示する";
             this.CheckPoke.UseVisualStyleBackColor = true;
             // 
             // CheckGreat
             // 
             this.CheckGreat.AutoSize = true;
-            this.CheckGreat.Location = new System.Drawing.Point(12, 255);
+            this.CheckGreat.Location = new System.Drawing.Point(20, 330);
             this.CheckGreat.Name = "CheckGreat";
-            this.CheckGreat.Size = new System.Drawing.Size(108, 19);
+            this.CheckGreat.Size = new System.Drawing.Size(153, 19);
             this.CheckGreat.TabIndex = 10;
-            this.CheckGreat.Text = "Show Great Ball";
+            this.CheckGreat.Text = "「スーパーボール」を表示する";
             this.CheckGreat.UseVisualStyleBackColor = true;
             // 
             // CheckShop1
             // 
             this.CheckShop1.AutoSize = true;
-            this.CheckShop1.Location = new System.Drawing.Point(12, 280);
+            this.CheckShop1.Location = new System.Drawing.Point(20, 280);
             this.CheckShop1.Name = "CheckShop1";
-            this.CheckShop1.Size = new System.Drawing.Size(116, 19);
+            this.CheckShop1.Size = new System.Drawing.Size(158, 19);
             this.CheckShop1.TabIndex = 11;
-            this.CheckShop1.Text = "Show Shop Ball 1";
+            this.CheckShop1.Text = "「ショップボール1」を表示する";
             this.CheckShop1.UseVisualStyleBackColor = true;
             // 
             // CheckShop2
             // 
             this.CheckShop2.AutoSize = true;
-            this.CheckShop2.Location = new System.Drawing.Point(12, 305);
+            this.CheckShop2.Location = new System.Drawing.Point(20, 305);
             this.CheckShop2.Name = "CheckShop2";
-            this.CheckShop2.Size = new System.Drawing.Size(116, 19);
+            this.CheckShop2.Size = new System.Drawing.Size(158, 19);
             this.CheckShop2.TabIndex = 12;
-            this.CheckShop2.Text = "Show Shop Ball 2";
+            this.CheckShop2.Text = "「ショップボール2」を表示する";
             this.CheckShop2.UseVisualStyleBackColor = true;
             // 
             // CheckApricorn
@@ -232,11 +233,11 @@
             this.CheckApricorn.AutoSize = true;
             this.CheckApricorn.Checked = true;
             this.CheckApricorn.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckApricorn.Location = new System.Drawing.Point(12, 330);
+            this.CheckApricorn.Location = new System.Drawing.Point(20, 255);
             this.CheckApricorn.Name = "CheckApricorn";
-            this.CheckApricorn.Size = new System.Drawing.Size(99, 19);
+            this.CheckApricorn.Size = new System.Drawing.Size(155, 19);
             this.CheckApricorn.TabIndex = 13;
-            this.CheckApricorn.Text = "Show Apriball";
+            this.CheckApricorn.Text = "「ガンテツボール」を表示する";
             this.CheckApricorn.UseVisualStyleBackColor = true;
             // 
             // CheckSafariSport
@@ -244,49 +245,47 @@
             this.CheckSafariSport.AutoSize = true;
             this.CheckSafariSport.Checked = true;
             this.CheckSafariSport.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckSafariSport.Location = new System.Drawing.Point(12, 355);
+            this.CheckSafariSport.Location = new System.Drawing.Point(20, 230);
             this.CheckSafariSport.Name = "CheckSafariSport";
-            this.CheckSafariSport.Size = new System.Drawing.Size(142, 19);
+            this.CheckSafariSport.Size = new System.Drawing.Size(183, 19);
             this.CheckSafariSport.TabIndex = 14;
-            this.CheckSafariSport.Text = "Show Safari/Sport Ball";
+            this.CheckSafariSport.Text = "「サファリ/コンペボール」を表示する";
             this.CheckSafariSport.UseVisualStyleBackColor = true;
             // 
             // CheckBonus
             // 
             this.CheckBonus.AutoSize = true;
-            this.CheckBonus.Checked = true;
-            this.CheckBonus.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckBonus.Location = new System.Drawing.Point(12, 380);
+            this.CheckBonus.Location = new System.Drawing.Point(20, 380);
             this.CheckBonus.Name = "CheckBonus";
-            this.CheckBonus.Size = new System.Drawing.Size(156, 19);
+            this.CheckBonus.Size = new System.Drawing.Size(135, 19);
             this.CheckBonus.TabIndex = 15;
-            this.CheckBonus.Text = "Show Bonus frames only";
+            this.CheckBonus.Text = "ボーナス枠だけ表示する";
             this.CheckBonus.UseVisualStyleBackColor = true;
             // 
             // CheckMenuClose
             // 
             this.CheckMenuClose.AutoSize = true;
-            this.CheckMenuClose.Location = new System.Drawing.Point(108, 204);
+            this.CheckMenuClose.Location = new System.Drawing.Point(116, 204);
             this.CheckMenuClose.Name = "CheckMenuClose";
-            this.CheckMenuClose.Size = new System.Drawing.Size(139, 19);
+            this.CheckMenuClose.Size = new System.Drawing.Size(154, 19);
             this.CheckMenuClose.TabIndex = 8;
-            this.CheckMenuClose.Text = "Consider Menu Close";
+            this.CheckMenuClose.Text = "メニュー閉じを考慮に入れる";
             this.CheckMenuClose.UseVisualStyleBackColor = true;
             this.CheckMenuClose.CheckedChanged += new System.EventHandler(this.CheckMenuClose_CheckedChanged);
             // 
             // LabelNPCs
             // 
             this.LabelNPCs.AutoSize = true;
-            this.LabelNPCs.Location = new System.Drawing.Point(23, 204);
+            this.LabelNPCs.Location = new System.Drawing.Point(37, 205);
             this.LabelNPCs.Name = "LabelNPCs";
-            this.LabelNPCs.Size = new System.Drawing.Size(39, 15);
+            this.LabelNPCs.Size = new System.Drawing.Size(33, 15);
             this.LabelNPCs.TabIndex = 172;
-            this.LabelNPCs.Text = "NPCs:";
+            this.LabelNPCs.Text = "NPC:";
             // 
             // InputNPCs
             // 
             this.InputNPCs.Enabled = false;
-            this.InputNPCs.Location = new System.Drawing.Point(68, 201);
+            this.InputNPCs.Location = new System.Drawing.Point(76, 201);
             this.InputNPCs.MaxLength = 2;
             this.InputNPCs.Name = "InputNPCs";
             this.InputNPCs.Size = new System.Drawing.Size(34, 23);
@@ -297,7 +296,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(887, 406);
+            this.ClientSize = new System.Drawing.Size(966, 406);
             this.Controls.Add(this.CheckMenuClose);
             this.Controls.Add(this.LabelNPCs);
             this.Controls.Add(this.InputNPCs);
@@ -323,7 +322,7 @@
             this.Controls.Add(this.LabelState0);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Cram_o_matic";
-            this.Text = "Cram-o-matic";
+            this.Text = "ウッウロボ";
             ((System.ComponentModel.ISupportInitialize)(this.CramResults)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CramBindingSource)).EndInit();
             this.ResumeLayout(false);
