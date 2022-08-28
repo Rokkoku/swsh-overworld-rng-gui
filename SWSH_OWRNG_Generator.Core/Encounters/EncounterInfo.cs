@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 
 namespace SWSH_OWRNG_Generator.Core.Encounters
 {
@@ -12,7 +12,7 @@ namespace SWSH_OWRNG_Generator.Core.Encounters
     public class PkmInfo
     {
         public IList<EncounterDetails>? Encounters { get; set; }
-        public bool? Item { get; set; }
+        public string? Item { get; set; }
         public IList<string>? EggMoves { get; set; }
 
     }
@@ -25,8 +25,8 @@ namespace SWSH_OWRNG_Generator.Core.Encounters
         public string? Location { get; set; }
         public int[]? Level { get; set; }
         public int[]? Slots { get; set; }
-        public bool? LockedAbility { get; set; }
-        public bool? ShinyLocked { get; set; }
+        public string? LockedAbility { get; set; }
+        public string? ShinyLocked { get; set; }
         public int? Ability { set; get; }
         public int? FixedIVs { get; set; }
     }
@@ -34,7 +34,7 @@ namespace SWSH_OWRNG_Generator.Core.Encounters
     public class PkmResult : EncounterDetails
     {
         public string? Species { get; set; }
-        public bool? Item { get; set; }
+        public string? Item { get; set; }
         public IList<string>? EggMoves { get; set; }
         public int? EggMoveCount { get; set; }
         public new string? Ability { get; set; }
