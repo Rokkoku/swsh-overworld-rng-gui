@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -66,7 +66,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             CramProgressBar.Maximum = (int)advances;
             CramProgressBar.Step = CramProgressBar.Maximum / 100;
 
-            CramSearch.Text = "Calculating...";
+            CramSearch.Text = "計算中...";
             CramSearch.Enabled = false;
 
             var progress = new Progress<int>(_ => CramProgressBar.PerformStep());
@@ -78,14 +78,28 @@ namespace SWSH_OWRNG_Generator.WinForms
             CramResults.Columns["Jump"].Visible = CheckMenuClose.Checked;
             Source.ResetBindings(false);
 
+
+            /* 日本語対応 */
+            CramResults.Columns["Advances"].HeaderText = "消費数";
+            CramResults.Columns["Jump"].HeaderText = "ジャンプ";
+            CramResults.Columns["Animation"].HeaderText = "動作";
+            CramResults.Columns["Slot"].HeaderText = "スロット";
+            CramResults.Columns["Ball"].HeaderText = "ボール";
+            CramResults.Columns["Bonus"].HeaderText = "ボーナス";
+
             CramProgressBar.Value = CramProgressBar.Maximum;
-            CramSearch.Text = "Search!";
+            CramSearch.Text = "検索!";
             CramSearch.Enabled = true;
         }
 
         private void CheckMenuClose_CheckedChanged(object sender, EventArgs e)
         {
             InputNPCs.Enabled = CheckMenuClose.Checked;
+        }
+
+        private void LabelItemInput_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
