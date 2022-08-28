@@ -1,4 +1,4 @@
-﻿using PKHeX.Core;
+using PKHeX.Core;
 
 namespace SWSH_OWRNG_Generator.Core.Loto_ID
 {
@@ -95,12 +95,20 @@ namespace SWSH_OWRNG_Generator.Core.Loto_ID
 
         private static string GetPrize(uint Item) => Item switch
         {
+            /*
             >= 5 => "Master Ball",
             >= 4 => "Rare Candy",
             >= 3 => "PP Max",
             >= 2 => "PP Up",
             >= 1 => "Moomoo Milk",
             _ => "(None)",
+            */
+            >= 5 => "マスターボール",
+            >= 4 => "ふしぎなアメ",
+            >= 3 => "ポイントマックス",
+            >= 2 => "ポイントアップ",
+            >= 1 => "モーモーミルク",
+            _ => "(はずれ)",
         };
     }
 }
