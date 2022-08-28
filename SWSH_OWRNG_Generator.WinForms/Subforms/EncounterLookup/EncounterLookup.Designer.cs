@@ -1,4 +1,4 @@
-﻿namespace SWSH_OWRNG_Generator.WinForms
+namespace SWSH_OWRNG_Generator.WinForms
 {
     partial class EncounterLookup
     {
@@ -46,9 +46,9 @@
             this.LabelGameVersion.AutoSize = true;
             this.LabelGameVersion.Location = new System.Drawing.Point(620, 15);
             this.LabelGameVersion.Name = "LabelGameVersion";
-            this.LabelGameVersion.Size = new System.Drawing.Size(41, 15);
+            this.LabelGameVersion.Size = new System.Drawing.Size(47, 15);
             this.LabelGameVersion.TabIndex = 0;
-            this.LabelGameVersion.Text = "Game:";
+            this.LabelGameVersion.Text = "ソフト名:";
             // 
             // SelectedGame
             // 
@@ -56,8 +56,8 @@
             this.SelectedGame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SelectedGame.FormattingEnabled = true;
             this.SelectedGame.Items.AddRange(new object[] {
-            "Shield",
-            "Sword"});
+            "ソード",
+            "シールド"});
             this.SelectedGame.Location = new System.Drawing.Point(667, 12);
             this.SelectedGame.Name = "SelectedGame";
             this.SelectedGame.Size = new System.Drawing.Size(121, 23);
@@ -80,9 +80,9 @@
             this.LabelSpecies.AutoSize = true;
             this.LabelSpecies.Location = new System.Drawing.Point(12, 15);
             this.LabelSpecies.Name = "LabelSpecies";
-            this.LabelSpecies.Size = new System.Drawing.Size(49, 15);
+            this.LabelSpecies.Size = new System.Drawing.Size(46, 15);
             this.LabelSpecies.TabIndex = 3;
-            this.LabelSpecies.Text = "Species:";
+            this.LabelSpecies.Text = "種族名:";
             // 
             // EncounterLookupResults
             // 
@@ -116,7 +116,7 @@
             this.Controls.Add(this.LabelGameVersion);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EncounterLookup";
-            this.Text = "Encounter Lookup";
+            this.Text = "エンカウントリスト";
             ((System.ComponentModel.ISupportInitialize)(this.EncounterLookupResults)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EncounterBindingSource)).EndInit();
             this.ResumeLayout(false);
