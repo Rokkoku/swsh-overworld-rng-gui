@@ -1,4 +1,4 @@
-﻿namespace SWSH_OWRNG_Generator.Core.Overworld
+namespace SWSH_OWRNG_Generator.Core.Overworld
 {
     public class Filter
     {
@@ -18,6 +18,7 @@
         public string? DesiredShiny { get; set; }
         public string? DesiredNature { get; set; }
         public string? DesiredAura { get; set; }
+        public string? DesiredGender { get; set; }
         public uint LevelMin { get; set; }
         public uint LevelMax { get; set; }
         public uint SlotMin { get; set; }
