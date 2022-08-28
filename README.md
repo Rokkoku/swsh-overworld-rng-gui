@@ -1,5 +1,14 @@
 # swsh-overworld-rng-gui(日本語化)
 v2.2.0ベースでざっくりと日本語化しました
+※あまりデバッグしていないため、意図通りの動作とならないことがあります。
+
+■動作環境
+Visual Studio2022にて、Release > Any CPU > SWSH_OWRNG_Generator.WinFormsで動くことを確認しています
+
+■既知の内容
+※1:釣りにおいて、本ツールとNX RNG Tool v0.0.1の計算結果に多少の誤差があります。
+(アルゴリズムに詳しく無いため、放置しています)
+
 
 # swsh-overworld-rng-gui
 [![.NET Core Desktop](https://github.com/LegoFigure11/swsh-overworld-rng-gui/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/LegoFigure11/swsh-overworld-rng-gui/actions/workflows/dotnet-desktop.yml) [![GitHub License](https://img.shields.io/github/license/legofigure11/swsh-overworld-rng-gui?color=ff69b4)](https://github.com/LegoFigure11/swsh-overworld-rng-gui/blob/main/LICENSE) [![Official Link](https://img.shields.io/badge/Official%20Release-Download-brightgreen)](https://github.com/LegoFigure11/swsh-overworld-rng-gui/releases/latest) [![Nightly Link](https://img.shields.io/badge/Latest%20Commit-Direct%20Download-blue)](https://nightly.link/LegoFigure11/swsh-overworld-rng-gui/workflows/dotnet-desktop/main/SWSH-Overworld-RNG-GUI.zip)
