@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -83,7 +83,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             LotoIDProgressBar.Maximum = (int)advances;
             LotoIDProgressBar.Step = LotoIDProgressBar.Maximum / 100;
 
-            LotoIDSearch.Text = "Calculating...";
+            LotoIDSearch.Text = "計算中...";
             LotoIDSearch.Enabled = false;
 
             Core.Loto_ID.Filter Filters = new()
@@ -104,10 +104,17 @@ namespace SWSH_OWRNG_Generator.WinForms
             BindingSource Source = new() { DataSource = Frames };
             LotoIdResults.DataSource = Source;
             LotoIdResults.Columns["Jump"].Visible = CheckMenuClose.Checked;
+
+            /* 日本語対応 */
+            LotoIdResults.Columns["Advances"].HeaderText = "消費数";
+            LotoIdResults.Columns["Jump"].HeaderText = "ジャンプ";
+            LotoIdResults.Columns["Animation"].HeaderText = "動作";
+            LotoIdResults.Columns["Prize"].HeaderText = "景品";
+
             Source.ResetBindings(false);
 
             LotoIDProgressBar.Value = LotoIDProgressBar.Maximum;
-            LotoIDSearch.Text = "Search!";
+            LotoIDSearch.Text = "検索!";
             LotoIDSearch.Enabled = true;
         }
 
