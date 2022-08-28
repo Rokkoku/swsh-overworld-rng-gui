@@ -1,4 +1,4 @@
-﻿using SWSH_OWRNG_Generator.Core.Encounters;
+using SWSH_OWRNG_Generator.Core.Encounters;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -36,21 +36,21 @@ namespace SWSH_OWRNG_Generator.WinForms
                         foreach (EncounterDetails Encounter in Data.Encounters)
                         {
                             if (Encounter.Game! != (string)SelectedGame.SelectedItem) continue;
-                            bool Item = false;
+                            string Item = "なし";
                             int FixedIVs = 0;
-                            bool AbilityLocked = false;
-                            bool ShinyLocked = false;
+                            string AbilityLocked = "なし";
+                            string ShinyLocked = "なし";
                             List<string> EggMoves = new();
                             string Ability = "-";
                             string Slot = "-";
                             string Level = (Encounter.Level[0] == Encounter.Level[1]) ? $"{Encounter.Level[0]}" : $"{Encounter.Level[0]} - {Encounter.Level[1]}";
-                            if (Data.Item != null && Encounter.EncounterType! != "Static") Item = (bool)Data.Item;
+                            if (Data.Item != null && Encounter.EncounterType! != "固定シンボル") Item = (string)Data.Item;
                             if (Data.EggMoves != null) EggMoves = (List<string>)Data.EggMoves;
                             if (Encounter.FixedIVs != null) FixedIVs = (int)Encounter.FixedIVs;
-                            if (Encounter.LockedAbility != null) AbilityLocked = (bool)Encounter.LockedAbility;
+                            if (Encounter.LockedAbility != null) AbilityLocked = (string)Encounter.LockedAbility;
                             if (Encounter.Ability != null) Ability = Encounter.Ability.ToString();
                             if (Encounter.Slots != null) Slot = $"{Encounter.Slots[0]} - {Encounter.Slots[1]}";
-                            if (Encounter.ShinyLocked != null) ShinyLocked = (bool)Encounter.ShinyLocked;
+                            if (Encounter.ShinyLocked != null) ShinyLocked = (string)Encounter.ShinyLocked;
 
                             Results.Add(
                                 new PkmResult
@@ -75,6 +75,19 @@ namespace SWSH_OWRNG_Generator.WinForms
                         EncounterLookupResults.Columns["EggMoves"].Visible = false;
                         EncounterLookupResults.Columns["Game"].Visible = false;
                         Source.ResetBindings(false);
+
+                        EncounterLookupResults.Columns["Species"].HeaderText = "種族名";
+                        EncounterLookupResults.Columns["Item"].HeaderText = "持ち物";
+                        EncounterLookupResults.Columns["EggMoveCount"].HeaderText = "タマゴ技数";
+                        EncounterLookupResults.Columns["Ability"].HeaderText = "特性";
+                        EncounterLookupResults.Columns["Level"].HeaderText = "Lv.";
+                        EncounterLookupResults.Columns["Slots"].HeaderText = "スロット";
+                        EncounterLookupResults.Columns["EncounterType"].HeaderText = "エンカウントタイプ";
+                        EncounterLookupResults.Columns["Weather"].HeaderText = "天候";
+                        EncounterLookupResults.Columns["Location"].HeaderText = "場所";
+                        EncounterLookupResults.Columns["LockedAbility"].HeaderText = "特性固定";
+                        EncounterLookupResults.Columns["FixedIVs"].HeaderText = "V固定数";
+
                     }
                 }
             }
@@ -82,9 +95,10 @@ namespace SWSH_OWRNG_Generator.WinForms
 
         private void EncounterLookupResults_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            MainWindow.CheckHeldItem.Checked = (bool)EncounterLookupResults[1, e.RowIndex].Value;
-            MainWindow.InputEMs.Text = EncounterLookupResults[3, e.RowIndex].Value.ToString();
-            MainWindow.CheckIsAbilityLocked.Checked = (string)EncounterLookupResults[4, e.RowIndex].Value != "-";
+            //MainWindow.CheckHeldItem.Checked = (bool)EncounterLookupResults["Item", e.RowIndex].Value;
+            MainWindow.CheckHeldItem.Checked = (string)EncounterLookupResults["Item", e.RowIndex].Value == "あり";
+            MainWindow.InputEMs.Text = EncounterLookupResults["EggMoveCount", e.RowIndex].Value.ToString();
+            MainWindow.CheckIsAbilityLocked.Checked = (string)EncounterLookupResults["Ability", e.RowIndex].Value != "-";
 
             string[] LevelSubs = ((string)EncounterLookupResults[5, e.RowIndex].Value).Split(" - ");
             string LevelMin = LevelSubs[0], LevelMax;
@@ -99,7 +113,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             MainWindow.InputLevelMin.Text = LevelMin;
             MainWindow.InputLevelMax.Text = LevelMax;
 
-            string[] SlotsSubs = ((string)EncounterLookupResults[6, e.RowIndex].Value).Split(" - ");
+            string[] SlotsSubs = ((string)EncounterLookupResults["Slots", e.RowIndex].Value).Split(" - ");
             string SlotMin = "0", SlotMax = "99";
             if (SlotsSubs.Length == 2)
             {
@@ -109,21 +123,21 @@ namespace SWSH_OWRNG_Generator.WinForms
             MainWindow.InputSlotMin.Text = SlotMin;
             MainWindow.InputSlotMax.Text = SlotMax;
 
-            string EncounterType = (string)EncounterLookupResults[8, e.RowIndex].Value;
-            bool Static = EncounterType == "Static";
-            bool Hidden = EncounterType == "Hidden";
+            string EncounterType = (string)EncounterLookupResults["EncounterType", e.RowIndex].Value;//8
+            bool Static = EncounterType == "固定シンボル";
+            bool Hidden = EncounterType == "ランダムエンカウント";
 
-            string WeatherType = (string)EncounterLookupResults[9, e.RowIndex].Value;
-            bool Fishing = WeatherType == "Fishing";
-            bool Weather = WeatherType is not "Normal Weather" and not "All Weather";
+            string WeatherType = EncounterLookupResults["Weather", e.RowIndex].Value.ToString();
+            bool Fishing = WeatherType == "釣り";
+            bool Weather = ((WeatherType != "晴れ") & (WeatherType != "全天候"));
             MainWindow.CheckFishing.Checked = Fishing;
             MainWindow.CheckWeather.Checked = Weather;
             MainWindow.CheckStatic.Checked = Static;
             MainWindow.CheckHidden.Checked = Hidden && !Fishing;
 
-            MainWindow.CheckIsAbilityLocked.Checked = (bool)EncounterLookupResults[11, e.RowIndex].Value;
-            MainWindow.CheckShinyLocked.Checked = (bool)EncounterLookupResults[12, e.RowIndex].Value;
-            MainWindow.InputFlawlessIVs.Text = EncounterLookupResults[13, e.RowIndex].Value.ToString();
+            MainWindow.CheckIsAbilityLocked.Checked = (string)EncounterLookupResults["LockedAbility", e.RowIndex].Value == "あり";
+            MainWindow.CheckShinyLocked.Checked = (string)EncounterLookupResults["ShinyLocked", e.RowIndex].Value =="あり";
+            MainWindow.InputFlawlessIVs.Text = EncounterLookupResults["FixedIVs", e.RowIndex].Value.ToString();
         }
     }
 }
