@@ -1,4 +1,4 @@
-﻿using PKHeX.Core;
+using PKHeX.Core;
 
 namespace SWSH_OWRNG_Generator.Core.Cram_o_matic
 {
@@ -44,12 +44,18 @@ namespace SWSH_OWRNG_Generator.Core.Cram_o_matic
 
                 string BallType = GetBall(Ball, IsSportSafari, ItemIndex);
                 if (
-                    BallType == "Poké Ball" && !Filters.Poke ||
-                    BallType == "Great Ball" && !Filters.Great ||
-                    BallType == "Shop Slot 1" && !Filters.Shop1 ||
-                    BallType == "Shop Slot 2" && !Filters.Shop2 ||
-                    BallType == "Apricorn" && !Filters.Apri ||
-                    (BallType == "Sport" || BallType == "Safari") && !Filters.SafariSport
+                        //BallType == "Poké Ball" && !Filters.Poke ||
+                        //BallType == "Great Ball" && !Filters.Great ||
+                        //BallType == "Shop Slot 1" && !Filters.Shop1 ||
+                        //BallType == "Shop Slot 2" && !Filters.Shop2 ||
+                        //BallType == "Apricorn" && !Filters.Apri ||
+                        //(BallType == "Sport" || BallType == "Safari") && !Filters.SafariSport
+                        BallType == "モンスターボール" && !Filters.Poke ||
+                        BallType == "スーパー" && !Filters.Great ||
+                        BallType == "ショップ1" && !Filters.Shop1 ||
+                        BallType == "ショップ2" && !Filters.Shop2 ||
+                        BallType == "ガンテツ" && !Filters.Apri ||
+                        (BallType == "コンペ" || BallType == "サファリ") && !Filters.SafariSport
                     )
                 {
                     go.Next();
@@ -89,17 +95,22 @@ namespace SWSH_OWRNG_Generator.Core.Cram_o_matic
         private static string GetBall(uint Roll, bool IsSportSafari, int ItemIndex)
         {
             if (IsSportSafari)
-                return (ItemIndex == 0 ? "Safari" : "Sport");
+                return (ItemIndex == 0 ? "サファリ" : "コンペ");
             return GetBallFromRange(Roll);
         }
 
         private static string GetBallFromRange(uint Roll) => Roll switch
         {
-            >= 99 => "Apricorn",
-            >= 75 => "Shop Slot 2",
-            >= 50 => "Shop Slot 1",
-            >= 25 => "Great Ball",
-            _ => "Poké Ball",
+            //>= 99 => "Apricorn",
+            //>= 75 => "Shop Slot 2",
+            //>= 50 => "Shop Slot 1",
+            //>= 25 => "Great Ball",
+            //_ => "Poké Ball"
+            >= 99 => "ガンテツ",
+            >= 75 => "ショップ2",
+            >= 50 => "ショップ1",
+            >= 25 => "スーパー",
+            _ => "モンスターボール",
         };
     }
 }
