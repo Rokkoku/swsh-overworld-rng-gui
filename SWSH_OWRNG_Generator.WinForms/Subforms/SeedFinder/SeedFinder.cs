@@ -43,7 +43,7 @@ namespace SWSH_OWRNG_Generator.WinForms
         private void MotionsSequenceInput_TextChanged(object sender, EventArgs e)
         {
             int l = MotionsSequenceInput.Text.Length;
-            LabelCompletedInputs.Text = $"Completed Motions: {l} / 128";
+            LabelCompletedInputs.Text = $"入力済み: {l} / 128";
             if (l == 128)
             {
                 // algo from https://github.com/niart120/Project_Xe
