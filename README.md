@@ -13,6 +13,7 @@ Visual Studio2022にて、Release > Any CPU > SWSH_OWRNG_Generator.WinFormsで�
 
 
 ■今後やりたいこと
+
 ・CSVファイルに計算結果を吐き出す
 
 # swsh-overworld-rng-gui
