@@ -1,10 +1,12 @@
-﻿using PKHeX.Core;
+using PKHeX.Core;
 
 namespace SWSH_OWRNG_Generator.Core
 {
     public static class Generator
     {
         private static readonly IReadOnlyList<string> Natures = GameInfo.GetStrings(1).Natures;
+        private static readonly string[] Natures_JPN = { "がんばりや", "さみしがり", "ゆうかん", "いじっぱり", "やんちゃ", "ずぶとい", "すなお", "のんき", "わんぱく", "のうてんき", "おくびょう", "せっかち", "まじめ", "ようき", "むじゃき", "ひかえめ", "おっとり", "れいせい", "てれや", "うっかりや", "おだやか", "おとなしい", "なまいき", "しんちょう", "きまぐれ" };
+        private static readonly string[] PersonalityMarks = { "Rowdy", "AbsentMinded", "Jittery", "Excited", "Charismatic", "Calmness", "Intense", "ZonedOut", "Joyful", "Angry", "Smiley", "Teary", "Upbeat", "Peeved", "Intellectual", "Ferocious", "Crafty", "Scowling", "Kindly", "Flustered", "PumpedUp", "ZeroEnergy", "Prideful", "Unsure", "Humble", "Thorny", "Vigor", "Slump" };
 
         // Heavily derived from https://github.com/Lincoln-LM/PyNXReader/
         public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Overworld.Filter Filters, uint NPCs)
@@ -66,7 +68,7 @@ namespace SWSH_OWRNG_Generator.Core
                     {
                         LeadRand = (uint)rng.NextInt(100);
                         if (Filters.CuteCharm && LeadRand < 66)
-                            Gender = "CC";
+                            Gender = "先頭メロボ";
                     }
                     else
                     {
@@ -76,7 +78,7 @@ namespace SWSH_OWRNG_Generator.Core
 
                         LeadRand = (uint)rng.NextInt(100);
                         if (Filters.CuteCharm && LeadRand < 66)
-                            Gender = "CC";
+                            Gender = "先頭メロボ";
 
                         SlotRand = (uint)rng.NextInt(100);
                         if (Filters.SlotMin > SlotRand || Filters.SlotMax < SlotRand)
@@ -101,7 +103,7 @@ namespace SWSH_OWRNG_Generator.Core
                                 Brilliant = true;
                                 Level = Filters.LevelMax;
                             }
-                            if ((Filters.DesiredAura == "Brilliant" && !Brilliant) || (Filters.DesiredAura == "None" && Brilliant))
+                            if ((Filters.DesiredAura == "あり" && !Brilliant) || (Filters.DesiredAura == "なし" && Brilliant))
                                 continue;
                         }
                     }
@@ -128,8 +130,8 @@ namespace SWSH_OWRNG_Generator.Core
                     }
 
                     // Gender
-                    if (Gender != "CC")
-                        Gender = rng.NextInt(2) == 0 ? "F" : "M";
+                    if (Gender != "先頭メロボ")
+                        Gender = rng.NextInt(2) == 0 ? "♀" : "♂";
                     // Nature
                     Nature = (uint)rng.NextInt(25);
                     // Ability
@@ -155,10 +157,10 @@ namespace SWSH_OWRNG_Generator.Core
                     (EC, PID, IVs, ShinyXOR, PassIVs) = Util.Common.CalculateFixed(FixedSeed, Filters.TSV, Shiny, (int)(Filters.FlawlessIVs + BrilliantIVs), Filters.MinIVs!, Filters.MaxIVs!);
 
                     if (!PassIVs ||
-                        (Filters.DesiredShiny == "Square" && ShinyXOR != 0) ||
-                        (Filters.DesiredShiny == "Star" && (ShinyXOR > 15 || ShinyXOR == 0)) ||
-                        (Filters.DesiredShiny == "Star/Square" && ShinyXOR > 15) ||
-                        (Filters.DesiredShiny == "No" && ShinyXOR < 16)
+                        (Filters.DesiredShiny == "◆" && ShinyXOR != 0) ||
+                        (Filters.DesiredShiny == "★" && (ShinyXOR > 15 || ShinyXOR == 0)) ||
+                        (Filters.DesiredShiny == "★/◆" && ShinyXOR > 15) ||
+                        (Filters.DesiredShiny == "通常色" && ShinyXOR < 16)
                         )
                         continue;
 
@@ -167,7 +169,14 @@ namespace SWSH_OWRNG_Generator.Core
                     if (!PassesMarkFilter(Mark, Filters.DesiredMark!))
                         continue;
 
-                    if (!PassesNatureFilter(Natures[(int)Nature], Filters.DesiredNature!))
+                    if (!PassesNatureFilter(Natures_JPN[(int)Nature], Filters.DesiredNature!))
+                        continue;
+
+                    if(Filters.DesiredGender == "性別不明")
+                    {
+                        Gender = "-";
+                    }
+                    if (!PassesGenderFilter(Gender, Filters.DesiredGender!))
                         continue;
 
                     // Passes all filters!
@@ -184,10 +193,10 @@ namespace SWSH_OWRNG_Generator.Core
                             Slot = SlotRand,
                             PID = PID.ToString("X8"),
                             EC = EC.ToString("X8"),
-                            Shiny = ShinyXOR == 0 ? "Square" : (ShinyXOR < 16 ? "Star" : "No"),
-                            Brilliant = Brilliant ? "Y" : "-",
+                            Shiny = ShinyXOR == 0 ? "◆" : (ShinyXOR < 16 ? "★" : "-"),
+                            Brilliant = Brilliant ? "あり" : "-",
                             Ability = AbilityRoll == 0 ? 1 : 0,
-                            Nature = Natures[(int)Nature],
+                            Nature = Natures_JPN[(int)Nature],
                             Gender = Gender,
                             HP = IVs[0],
                             Atk = IVs[1],
@@ -214,12 +223,17 @@ namespace SWSH_OWRNG_Generator.Core
 
         private static bool PassesMarkFilter(string Mark, string DesiredMark)
         {
-            return !((DesiredMark == "Any Mark" && Mark == "None") || (DesiredMark == "Any Personality" && (Mark == "None" || Mark == "Uncommon" || Mark == "Time" || Mark == "Weather" || Mark == "Fishing" || Mark == "Rare")) || (DesiredMark != "Ignore" && DesiredMark != "Any Mark" && DesiredMark != "Any Personality" && Mark != DesiredMark));
+            return !((DesiredMark == "証あり" && Mark == "-") || (DesiredMark == "雰囲気証" && (Mark == "-" || Mark == "ときどきみる(ひとになれている)" || Mark == "時間帯" || Mark == "天候" || Mark == "つりあげられた(つりたてピチピチの)" || Mark == "みたことのない(ひとをしらない)")) || (DesiredMark != "(指定なし)" && DesiredMark != "証あり" && DesiredMark != "雰囲気証" && Mark != DesiredMark));
         }
 
         private static bool PassesNatureFilter(string Nature, string DesiredNature)
         {
-            return (DesiredNature == Nature) || (DesiredNature == "Ignore");
+            return (DesiredNature == Nature) || (DesiredNature == "(指定なし)");
+        }
+
+        private static bool PassesGenderFilter(string Gender, string DesiredGender)
+        {
+            return (DesiredGender == Gender) || (DesiredGender == "(指定なし)")||(Gender == "-");
         }
 
         public static string GenerateRetailSequence(ulong state0, ulong state1, uint start, uint max, IProgress<int> progress)
